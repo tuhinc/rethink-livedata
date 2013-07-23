@@ -3,9 +3,6 @@
 
 Players = new Meteor.Collection("players");
 
-var randomizer = function() {
-  Players.update({}, {$set: {score: Math.floor(Random.fraction()*10)*5}});
-};
 
 if (Meteor.isClient) {
   var scoreRandomizer = function() {
@@ -28,13 +25,16 @@ if (Meteor.isClient) {
   Template.newPlayer.events({
     'click input.add': function() {
       var newPlayerName = document.getElementById("new_player_name").value;
-      Players.insert({name: new_player_name, score: 0});
+      Meteor.call("clientInsert", newPlayerName);
     }
   });
 
   Template.leaderboard.events({
     'click input.inc': function () {
       Players.update(Session.get("selected_player"), {$inc: {score: 5}});
+    },
+    'click input.dec': function () {
+      Players.update(Session.get("selected_player"), {$inc: {score: -5}});
     },
     'click input.sort': function() {
       if (Session.get("sortMethod")["score"]) {
@@ -44,6 +44,7 @@ if (Meteor.isClient) {
       }
     },
     'click input.randomizer': function() {
+      Meteor.call("randomizer");
     }
   });
 
@@ -65,7 +66,21 @@ if (Meteor.isServer) {
                    "Nikola Tesla",
                    "Claude Shannon"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
+        Players.insert({name: names[i]});
     }
   });
 }
+
+Meteor.methods({
+  randomizer: function() {
+    allPlayers.forEach(function (player) {
+      console.log(player);
+      Players.update(player._id, {$set: {score: Math.floor(Random.fraction()*10)*5}}, true);
+      });
+    return "success";
+  },
+  clientInsert: function(name) {
+    Players.insert({name: name, score: 0});
+    return name;
+  }
+});
