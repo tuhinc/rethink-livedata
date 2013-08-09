@@ -1,0 +1,12 @@
+2013-07-26T17:11:02.894934000 0.152301s info: Creating directory /Users/hackreactor/code/tuhinc/meteor_playground/leaderboard/packages/rethink-livedata/rethinkdb_data
+2013-07-26T17:11:02.895337000 0.152703s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/hackreactor/code/tuhinc/meteor_playground/leaderboard/packages/rethink-livedata/rethinkdb_data' did not already exist.)
+2013-07-26T17:11:02.895402000 0.152767s info: Running rethinkdb 1.7.3 (CLANG 4.2 (clang-425.0.28))...
+2013-07-26T17:11:02.900612000 0.157978s info: Running on Darwin 12.3.0 x86_64
+2013-07-26T17:11:02.900696000 0.158061s info: Loading data from directory /Users/hackreactor/code/tuhinc/meteor_playground/leaderboard/packages/rethink-livedata/rethinkdb_data
+2013-07-26T17:11:04.927879000 2.184245s info: Listening for intracluster connections on port 29015
+2013-07-26T17:11:04.929491000 2.185857s info: Listening for client driver connections on port 28015
+2013-07-26T17:11:04.929513000 2.185878s info: Listening for administrative HTTP connections on port 8080
+2013-07-26T17:11:04.929515000 2.185880s info: Listening on addresses: 127.0.0.1
+2013-07-26T17:11:04.929516000 2.185881s info: To fully expose RethinkDB on the network, bind to all addresses
+2013-07-26T17:11:04.929517000 2.185882s info: by running rethinkdb with the `--bind all` command line option.
+2013-07-26T17:11:04.929518000 2.185883s info: Server ready
