@@ -1,8 +1,0 @@
-{
-	"name": "rethink-livedata",
-	"description": "A Meteor module for RethinkDB",
-	"homepage": "https://github.com/tuhinc/rethink-livedata",
-	"author": "Tuhin Chakraborty"
-	"version": "0.0.1"
-	"git": "https://github.com/tuhinc/rethink-livedata.git"
-}
