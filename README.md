@@ -15,7 +15,7 @@ Install RethinkDB from Atmosphere
 Install From Git (If you are not using Meteorite)
 ```bash 
     mkdir -p packages
-    git submodule add https://github.com/tuhinc/meteor_playground.git packages/rethink-live-data
+    git submodule add https://github.com/tuhinc/rethink-livedata.git packages/rethink-livedata
 ````
 # Usage
 
