@@ -1,4 +1,4 @@
-# RethinkDB for Meteor 
+# RethinkDB for Meteor [currently broken]
 
 Meteor Smart Package providing RethinkDB support for Meteor
 
