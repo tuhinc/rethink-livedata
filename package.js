@@ -3,7 +3,7 @@ Package.describe({
 });
 
 Npm.depends({
-  'rethinkdb': '1.7.0-2'
+  'rethinkdb': '1.10.0-0'
 });
 
 Package.on_use(function (api) {
