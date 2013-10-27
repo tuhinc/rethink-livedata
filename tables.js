@@ -90,7 +90,7 @@ _.each(["insert"], function(name) {
 
     // if we are the local collection
     if (self._connection && self._connection !== Meteor.default_server) {
-      var enclosing = Meteor._CurrentInvocation.get();
+      var enclosing = DDP._CurrentInvocation.get();
       var alreadyInSimulation = enclosing && enclosing.isSimulation;
       if (!alreadyInSimulation && name !== "insert") {
         throwIfSelectorIsNotId(args[0], name);

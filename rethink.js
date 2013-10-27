@@ -10,27 +10,63 @@ var Future = Npm.require(path.join('fibers', 'future'));
 _Rethink = function(url) {
   var self = this;
 
-  self.table_queue = [];
+  // store callbacks which require an open connection
+  self._connectCallbacks = [];
+  
+  self.db = 'test';
 
   r.connect({
     host:'localhost',
     port: 28015,
-    db: 'test'
+    db: self.db
   }, function(err, connection){
-     if(err) throw err;
-     console.log('connected');
-     self.connection = connection;
+    if(err) throw err;
+    console.log('connected');
+    self.connection = connection;
+    
+    Fiber(function () {
+      // drain queue of pending callbacks
+      _.each(self._connectCallbacks, function (c) {
+        c(connection);
+      });
+    }).run();
   });
+  
+  // create database
+  self._withDb(function (connection) {
+    r.dbCreate(self.db).run(connection, function (err, cursor) {
+      // this is probably not the best thing to do here,
+      // but it's late
+      // swallows the "database already exists" error.
+      if (err && err.msg.indexOf('already') == -1)
+        throw err;
+      console.log("Created/Used database " + self.db);
+    });
+  });
+  
   self.invalidator = new Meteor.Invalidator(self);
 };
 
 _.extend(_Rethink.prototype, Object.create(EventEmitter.prototype));
 
+// wrapper around functions that need an open DB connection
+_Rethink.prototype._withDb = function (callback) {
+  var self = this;
+  if (self.connection) {
+    callback(self.connection);
+  } else {
+    self._connectCallbacks.push(callback);
+  }
+};
+
 _Rethink.prototype._createTable = function(tableName) {
   var self = this;
   self.tableName = tableName;
-  r.db('test').tableCreate(tableName).run(self.connection, function(err, cursor) {
-    console.log('success!', err);
+  
+  self._withDb(function (connection) {
+    r.db(self.db).tableCreate(tableName).run(connection, function(err, cursor) {
+      console.log('success!', err);
+    });
   });
 };
 
